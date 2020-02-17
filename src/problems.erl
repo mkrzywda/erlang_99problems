@@ -1,6 +1,6 @@
 -module(problems).
 
--export([last/1, last_but_last/1, kth_elem/2, len/1]).
+-export([last/1, last_but_last/1, kth_elem/2, len/1, my_reverse/1]).
 
 %% 1 %%
 
