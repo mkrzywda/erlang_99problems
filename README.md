@@ -2,7 +2,7 @@
 
 99 Problems solutions using Erlang
 ```
-    https://sites.google.com/site/prologsite/prolog-problems.
+https://sites.google.com/site/prologsite/prolog-problems.
 ```
 
 Build
