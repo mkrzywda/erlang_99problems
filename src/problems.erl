@@ -1,6 +1,6 @@
 %% @author Maciej Krzywda <maciej.krzywdaa@gmail.com>
 %%
-%% @doc This is the 99 problems solution in erlang.
+%% @doc This is the 99 problems solution in Erlang.
 %%
 %% It provides list operations:
 %% <li>last - Find the last element of a list. ,</li>
