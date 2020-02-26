@@ -57,7 +57,7 @@ palindrome(_, _) ->
 	false.
 
 %% 7 %%
-compress(li) -> lists:reverse(compress(li,[])).						
+compress(li) -> my_reverse(compress(li,[])).						
 
 compress([Head], res) 	-> [Head|Result];
 compress([Head,Head|Tail],res) when Head == Head
