@@ -3,19 +3,19 @@
 %% @doc This is the 99 problems solution in Erlang.
 %%
 %% It provides list operations:
-%% <li>last - Find the last element of a list. ,</li>
+%% <li>last - Find the last element of a list,</li>
 %% <li>last_but_last - Find the last but one element of a list,</li>
-%% <li>kth_elem - Find the K'th element of a list.,</li>
-%% <li>len - Find the number of elements of a list.,</li>
-%% <li>my_reverse - Reverse a list.,</li>
-%% <li>palindrome - Find out whether a list is a palindrome.,</li>
-%% <li>flatten - Flatten a nested list structure.,</li>
-%% <li>compress - Eliminate consecutive duplicates of list elements.</li>
-
+%% <li>kth_elem - Find the K'th element of a list,</li>
+%% <li>len - Find the number of elements of a list,</li>
+%% <li>my_reverse - Reverse a list,</li>
+%% <li>palindrome - Find out whether a list is a palindrome,</li>
+%% <li>flatten - Flatten a nested list structure,</li>
+%% <li>compress - Eliminate consecutive duplicates of list elements,</li>
+%% <li>pack - Eliminate consecutive duplicates of list elements.</li>
 
 -module(problems).
-
--export([last/1, last_but_last/1, kth_elem/2, len/1, my_reverse/1, palindrome/1 , flatten/1, compress/1 ]).
+% -export([last/1, last_but_last/1, kth_elem/2, len/1, my_reverse/1, palindrome/1 , flatten/1, compress/1, pack/1 ]).
+-compile(export_all).
 
 %% @doc Find the last element of a list.
 last([]) ->
@@ -55,32 +55,45 @@ my_reverse([Head|Tail],Res) ->
     my_reverse(Tail,[Head|Res]).
 
 %% @doc Find out whether a list is a palindrome
-palindrome(li) ->
-	palindrome(li, myReverse(li)).
+palindrome(List) ->
+	palindrome(List, my_reverse(List)).
 palindrome([], []) ->
 	true;
 palindrome([Head], [Head]) ->
 	true;
-palindrome([Head|T], [Head|Tail]) ->
+palindrome([Head|Tail], [Head|Tail]) ->
 	palindrome(Tail, Tail);
 palindrome(_, _) ->
 	false.
 
 %% @doc Flatten a nested list structure
-flatten(li) ->
-	flatten(li, []).
-flatten([], res) ->
-	my_reverse(res);
-flatten([Head|Tail], res) when is_list(Head) ->
-	flatten(Tail, my_reverse(flatten(Head, res)));
-flatten([Head|Tail], res) ->
-	flatten(Tail, [Head|res]).
+flatten(List) ->
+	flatten(List, []).
+flatten([], Res) ->
+	my_reverse(Res);
+flatten([Head|Tail], Res) when is_list(Head) ->
+	flatten(Tail, my_reverse(flatten(Head, Res)));
+flatten([Head|Tail], Res) ->
+	flatten(Tail, [Head|Res]).
 
 
 %% @doc Eliminate consecutive duplicates of list elements
-compress(li) -> my_reverse(compress(li,[])).						
-compress([Head], res) 	-> [Head|Result];
-compress([Head,Head|Tail],res) when Head == Head
-		       	       	-> compress([Head|Tail], res);
-compress([Head,sec|Tail],res) when not(Head == sec)
-				-> compress([sec|Tail], [Head|res]).
+compress(List) -> my_reverse(compress(List,[])).						
+compress([Head], Res) 	-> [Head|Res];
+compress([Head,Head|Tail],Res) when Head == Head
+		       	       	-> compress([Head|Tail], Res);
+compress([Head,Sec|Tail],Res) when not(Head == Sec)
+				-> compress([Sec|Tail], [Head|Res]).
+
+%% @doc Pack consecutive duplicates of list elements into sublists.
+pack(List) -> my_reverse(pack(List,[])).
+
+pack([],Res) 	-> Res;
+pack(List,Res) 	-> [ResTmp,NewTail] = tmp_pack(List,[]),
+			   pack(NewTail,[ResTmp]++Res).
+
+tmp_pack([Head],Res) 	-> [[Head|Res],[]];
+tmp_pack([Head,Second|Tail],Res) when not(Head == Second)
+				-> [[Head|Res],[Second|Tail]];
+tmp_pack([Head,Head|Tail], Res) when Head == Head 
+				-> tmp_pack([Head|Tail],[Head|Res]).
