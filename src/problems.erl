@@ -62,5 +62,5 @@ compress(li) -> lists:reverse(compress(li,[])).
 compress([Head], res) 	-> [Head|Result];
 compress([Head,Head|Tail],res) when Head == Head
 		       	       	-> compress([Head|Tail], res);
-compress([Head,sec|Tail],Result) when not(Head == Second)
+compress([Head,sec|Tail],res) when not(Head == Second)
 				-> compress([sec|Tail], [Head|res]).
