@@ -42,3 +42,16 @@ my_reverse([],Res) ->
     Res;
 my_reverse([Head|Tail],Res) ->
     my_reverse(Tail,[Head|Res]).
+
+%% 6 %%
+
+palindrome(li) ->
+	palindrome(li, myReverse(li)).
+palindrome([], []) ->
+	true;
+palindrome([Head], [Head]) ->
+	true;
+palindrome([Head|T], [Head|Tail]) ->
+	palindrome(Tail, Tail);
+palindrome(_, _) ->
+	false.
