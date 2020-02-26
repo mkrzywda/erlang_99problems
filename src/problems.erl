@@ -1,6 +1,6 @@
 -module(problems).
 
--export([last/1, last_but_last/1, kth_elem/2, len/1, my_reverse/1, palindrome/1 , flatten/1 ]).
+-export([last/1, last_but_last/1, kth_elem/2, len/1, my_reverse/1, palindrome/1 , flatten/1, compress/1 ]).
 
 %% 1 %%
 
@@ -55,3 +55,12 @@ palindrome([Head|T], [Head|Tail]) ->
 	palindrome(Tail, Tail);
 palindrome(_, _) ->
 	false.
+
+%% 7 %%
+compress(li) -> lists:reverse(compress(li,[])).						
+
+compress([Head], Result) 	-> [Head|Result];
+compress([Head,Head|Tail],res) when Head == Head
+		       	       	-> compress([Head|Tail], res);
+compress([Head,sec|Tail],Result) when not(Head == Second)
+				-> compress([sec|Tail], [Head|res]).
