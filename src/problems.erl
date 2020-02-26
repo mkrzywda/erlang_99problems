@@ -37,7 +37,7 @@ len([_|Tail]) ->
 %% 5 %%
 
 my_reverse(List) ->
-    reverse(List,[]).
+    my_reverse(List,[]).
 my_reverse([],Res) ->
     Res;
 my_reverse([Head|Tail],Res) ->
