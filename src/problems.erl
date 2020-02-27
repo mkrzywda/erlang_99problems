@@ -85,7 +85,7 @@ compress([Head,Head|Tail],Res) when Head == Head
 compress([Head,Sec|Tail],Res) when not(Head == Sec)
 				-> compress([Sec|Tail], [Head|Res]).
 
-%% @doc Pack consecutive duplicates of list elements into sublists.
+%% @doc Consecutive duplicates of list elements into sublists.
 pack(List) -> my_reverse(pack(List,[])).
 
 pack([],Res) 	-> Res;
@@ -97,3 +97,12 @@ tmp_pack([Head,Second|Tail],Res) when not(Head == Second)
 				-> [[Head|Res],[Second|Tail]];
 tmp_pack([Head,Head|Tail], Res) when Head == Head 
 				-> tmp_pack([Head|Tail],[Head|Res]).
+
+
+%% @doc Run-length encoding of a list.
+encode(List) -> 	NList = pack(List),
+			my_reverse(encode(NList,[])).
+encode([],Result) 		-> Result;
+encode([Head|Tail],Result) 	-> [First|_] = Head,
+				   Size = len(Head),
+				   encode(Tail,[[Size,First]|Result]).
