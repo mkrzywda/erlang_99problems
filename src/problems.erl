@@ -106,3 +106,13 @@ encode([],Result) 		-> Result;
 encode([Head|Tail],Result) 	-> [First|_] = Head,
 				   Size = len(Head),
 				   encode(Tail,[[Size,First]|Result]).
+
+
+%% @doc Modified run-length encoding.
+encoding(List) -> 	NList = encode(List),
+			  my_reverse(encoding(NList,[])).
+encoding([],Result) 	-> Result;
+encoding([[Size,Element]|Tail],Result) when Size == 1
+				-> encoding(Tail,[Element|Result]);
+encoding([[Size,Element]|Tail],Result) when Size > 1
+				-> encoding(Tail,[[Size,Element]|Result]).
